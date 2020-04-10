@@ -5,13 +5,13 @@ CC		:= clang
 ARCHFLAGS	:= -arch x86_64 -mmacosx-version-min=10.7
 OPTFLAGS	:= -DNDEBUG -ffast-math -mfpmath=sse -msse -msse2 -O3 -ftree-vectorize
 
-CXXFLAGS	:= $(ARCHFLAGS) $(OPTFLAGS) -I. -Isrc -Irubberband -I/usr/local/include -DUSE_PTHREADS -DMALLOC_IS_ALIGNED -DHAVE_VDSP -DUSE_SPEEX -DNO_THREAD_CHECKS -DNO_TIMING
+CXXFLAGS	:= $(ARCHFLAGS) $(OPTFLAGS) -I. -Isrc -Irubberband -I/usr/local/include -DUSE_PTHREADS -DMALLOC_IS_ALIGNED -DHAVE_FFTW3 -DHAVE_LIBSAMPLERATE -DNO_THREAD_CHECKS -DNO_TIMING
 
 CFLAGS		:= $(ARCHFLAGS) $(OPTFLAGS)
 LDFLAGS		:= $(ARCHFLAGS) -lpthread $(LDFLAGS)
 
-LIBRARY_LIBS		:= -framework Accelerate
-PROGRAM_LIBS		:= -L$(PREFIX)/lib -lsndfile $(LIBRARY_LIBS)
+LIBRARY_LIBS		:= -L$(PREFIX)/lib -lsndfile -lsamplerate -lfftw3 -lfftw3f -framework Accelerate
+PROGRAM_LIBS		:= -L$(PREFIX)/lib -lsndfile -framework Accelerate
 VAMP_PLUGIN_LIBS	:= -L$(PREFIX)/lib -lvamp-sdk $(LIBRARY_LIBS)
 LADSPA_PLUGIN_LIBS	:= $(LIBRARY_LIBS)
 
